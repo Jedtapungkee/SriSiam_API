@@ -45,7 +45,7 @@ exports.register = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: "Server Error",
+      message: error.message || "Server Error",
     });
   }
 };
@@ -62,14 +62,14 @@ exports.login = async (req, res) => {
 
     if (!user || !user.enabled) {
       return res.status(400).json({
-        message: "User not found or not Enabled !!",
+        message: "User or Password Invalid!!",
       });
     }
     // check Password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({
-        message: "Password Invalid!!",
+        message: "User or Password Invalid!!",
       });
     }
     // create payload
@@ -103,7 +103,7 @@ exports.currentUser = async (req, res) => {
         email: true,
         firstName: true,
         role: true,
-        picture:true,
+        picture: true,
       },
     });
     res.json({ user });
@@ -119,4 +119,43 @@ exports.currentUser = async (req, res) => {
 exports.googleCallback = async (req, res) => {
   const token = generateAccessToken(req.user);
   res.redirect(`http://localhost:5173?token=${token}`);
+};
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+  try {
+    const { firstName, email, password } = req.body;
+    
+    // check Email and firstName is Match
+    const user = await prisma.user.findFirst({
+      where: {
+        AND: [{ email: email }, { firstName: firstName }],
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found!!",
+      });
+    }
+
+    // hash new password
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    // update user password
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        password: hashPassword,
+      },
+    });
+
+    res.json({
+      message: "Password reset successfully",
+    });
+  } catch (error) {
+    console.error("Error in resetPassword:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
