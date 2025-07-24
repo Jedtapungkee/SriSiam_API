@@ -43,7 +43,6 @@ model Product {
   id               Int              @id @default(autoincrement())
   title            String
   description      String?
-  price            Float
   sold             Int              @default(0)
   orderItems       ProductOnOrder[]
   cartItems        ProductOnCart[]
@@ -63,6 +62,7 @@ model ProductSize {
   productId Int
   size      EnumSize
   quantity  Int      @default(0)
+  price     Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

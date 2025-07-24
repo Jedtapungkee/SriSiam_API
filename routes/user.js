@@ -1,9 +1,9 @@
 const express = require('express');
-const { listUsers, changeStatus } = require('../controllers/user');
+const { listUsers, changeStatus, changeRole } = require('../controllers/user');
 const router = express.Router();
-
+const { adminCheck, authCheck } = require('../middlewares/authCheck');
 
 router.get('/users',listUsers)
-router.post('/change-status',changeStatus)
-
+router.post('/change-status',authCheck,adminCheck,changeStatus)
+router.post('/change-role',authCheck,adminCheck,changeRole)
 module.exports = router;

@@ -5,7 +5,6 @@ exports.createProduct = async (req, res) => {
     const {
       title,
       description,
-      price,
       categoryId,
       productsizes,
       gender,
@@ -18,7 +17,6 @@ exports.createProduct = async (req, res) => {
       data: {
         title,
         description,
-        price: parseInt(price),
         categoryId: parseInt(categoryId),
         gender,
         educationLevelId: educationLevelId ? parseInt(educationLevelId) : null,
@@ -26,6 +24,7 @@ exports.createProduct = async (req, res) => {
           create: productsizes.map((item) => {
             return {
               size: item.size,
+              price: Number(item.price),
               quantity: parseInt(item.quantity),
             };
           }),
