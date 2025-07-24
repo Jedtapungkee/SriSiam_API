@@ -25,3 +25,24 @@ exports.listUsers = async(req,res)=>{
         res.status(500).json({ message: "Internal server error" });
     }
 }
+
+exports.changeStatus = async(req,res)=>{
+    try {
+        const { id, enabled } = req.body;
+
+        // Find user by ID and update status
+        const user = await prisma.user.update({
+            where: { id },
+            data: { enabled },
+        });
+
+        console.log(`User status updated: ${user.id} - Enabled: ${user.enabled}`);
+        res.json({
+            message: "User status updated successfully",
+            user,
+        });
+    } catch (error) {
+        console.error("Error changing user status:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
