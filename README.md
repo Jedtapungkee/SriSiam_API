@@ -12,11 +12,11 @@
 
 ## Education-Level
 
-| Endpoint                 | Method | Description           | Body                  |
-| ------------------------ | ------ | --------------------- | --------------------- |
-| `/api/education-level`   | POST   | Create category       | `{ "name": "Test1" }` |
-| `/api/education-level`   | GET    | Get categories        | None                  |
-| `api/education-level:id` | DELETE | Delete category by ID | None                  |
+| Endpoint                 | Method | Description                  | Body                  |
+| ------------------------ | ------ | ---------------------------- | --------------------- |
+| `/api/education-level`   | POST   | Create Education-Level       | `{ "name": "Test1" }` |
+| `/api/education-level`   | GET    | Get Education-Level          | None                  |
+| `api/education-level:id` | DELETE | Delete Education-Level by ID | None                  |
 
 ## Category
 
@@ -28,13 +28,13 @@
 
 ## Product
 
-| Endpoint              | Method | Description             | Body                                                                                                        |
-| --------------------- | ------ | ----------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `/api/product`        | POST   | Create product          | `{ "title": "TEST", "description": "test", "price": 10000, "quantity": 20, "categoryId": 2, "images": [] }` |
-| `/api/product/:id`    | GET    | Get product by ID       | None                                                                                                        |
-| `/api/product/:id`    | DELETE | Delete product by ID    | None                                                                                                        |
-| `/api/productby`      | POST   | Get products by filters | `{ "sort": "price", "order": "asc", "limit": 2 }` or `{ "sort": "quantity", "order": "desc", "limit": 2 }`  |
-| `/api/search/filters` | POST   | Search with filters     | `{ "query": "mouse" }`, `{ "price": [100, 600] }`, or `{ "category": [1, 2] }`                              |
+| Endpoint              | Method | Description             | Body                                                                                                                                                                                                                                        |
+| --------------------- | ------ | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/api/product`        | POST   | Create product          | `{"title":"รองเท้าหญิง","description":"test","categoryId":1,"gender":"MALE","productsizes":[{"size":"S","price":250,"quantity":10},{"size":"M","price":300,"quantity":20}],"images":[],"educationLevelId":"ประถม"}` |
+| `/api/product/:id`    | GET    | Get product by ID       | None                                                                                                                                                                                                                                        |
+| `/api/product/:id`    | DELETE | Delete product by ID    | None                                                                                                                                                                                                                                        |
+| `/api/productby`      | POST   | Get products by filters | `{ "sort": "price", "order": "asc", "limit": 2 }` or `{ "sort": "quantity", "order": "desc", "limit": 2 }`                                                                                                                                  |
+| `/api/search/filters` | POST   | Search with filters     | `{ "query": "mouse" }`, `{ "price": [100, 600] }`, or `{ "category": [1, 2] }`                                                                                                                                                              |
 
 ## User Management
 
