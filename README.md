@@ -31,7 +31,8 @@
 | Endpoint              | Method | Description             | Body                                                                                                                                                                                                                                        |
 | --------------------- | ------ | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `/api/product`        | POST   | Create product          | `{"title":"รองเท้าหญิง","description":"test","categoryId":1,"gender":"MALE","productsizes":[{"size":"S","price":250,"quantity":10},{"size":"M","price":300,"quantity":20}],"images":[],"educationLevelId":"ประถม"}` |
-| `/api/product/:id`    | GET    | Get product by ID       | None                                                                                                                                                                                                                                        |
+| `/api/product/:id`    | GET    | Get product by ID       | None             
+| `/api/products/:count`    | GET    | Get product by count     | None                                                                                                                                                                                                                               |
 | `/api/product/:id`    | DELETE | Delete product by ID    | None                                                                                                                                                                                                                                        |
 | `/api/productby`      | POST   | Get products by filters | `{ "sort": "price", "order": "asc", "limit": 2 }` or `{ "sort": "quantity", "order": "desc", "limit": 2 }`                                                                                                                                  |
 | `/api/search/filters` | POST   | Search with filters     | `{ "query": "mouse" }`, `{ "price": [100, 600] }`, or `{ "category": [1, 2] }`                                                                                                                                                              |
@@ -43,7 +44,7 @@
 | `/api/users`         | GET    | Get all users      | None                                                                                         |
 | `/api/change-status` | POST   | Change user status | `{ "id": 1, "enabled": false }`                                                              |
 | `/api/change-role`   | POST   | Change user role   | `{ "id": 1, "role": "user" }`                                                                |
-| `/api/user/cart`     | POST   | Add to cart        | `{ "cart": [{ "id": 1, "count": 2, "price": 100 }, { "id": 5, "count": 1, "price": 200 }] }` |
+| `/api/user/cart`     | POST   | Add to cart        | `{"cart":[{"id":1,"count":1,"size":"M","price":250},{"id":4,"count":2,"size":"S","price":200}]}`
 | `/api/user/cart`     | GET    | Get cart           | None                                                                                         |
 | `/api/user/cart`     | DELETE | Delete cart        | None                                                                                         |
 | `/api/user/address`  | POST   | Add user address   | `{ "address": "korat" }`                                                                     |
@@ -56,3 +57,9 @@
 | ------------------- | ------ | ------------------- | ----------------------------------------------- |
 | `/api/user/order`   | PUT    | Update order status | `{ "orderId": 35, "orderStatus": "Completed" }` |
 | `/api/admin/orders` | GET    | Get all orders      | None                                            |
+
+## Chatbot
+
+| Endpoint            | Method | Description         | Body                                            |
+| ------------------- | ------ | ------------------- | ----------------------------------------------- |
+| `/api/chatbot/message`   | POST    | Chat with Bot | `{ "message": "สวัสดี" }` |
