@@ -154,19 +154,26 @@ exports.remove = async (req, res) => {
 exports.listby = async (req, res) => {
   try {
     const { sort, order, limit } = req.body;
+    // 1. ดึง products ทั้งหมดที่มี productsizes
     const products = await prisma.product.findMany({
-      take: parseInt(limit),
-      orderBy: {
-        [sort]: order,
-      },
       include: {
-        category: true,
-        images: true,
         productsizes: true,
+        images: true,
+        category: true,
         educationLevel: true,
       },
     });
-    res.send(products);
+    // 2. จัดเรียงตาม field ใน productsizes (เช่น price หรือ quantity)
+    const sorted = products.sort((a, b) => {
+      const aValue = a.productsizes[0]?.[sort] ?? 0;
+      const bValue = b.productsizes[0]?.[sort] ?? 0;
+
+      return order === "asc" ? aValue - bValue : bValue - aValue;
+    });
+    // 3. ตัดออกเฉพาะจำนวนตาม limit
+    const limited = sorted.slice(0, parseInt(limit));
+
+    res.json(limited);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server product listby Error" });
@@ -238,21 +245,20 @@ const handleCategory = async (req, res, categoryId) => {
   }
 };
 
-exports.searchFilters = async(req,res)=>{
-    try{
+exports.searchFilters = async (req, res) => {
+  try {
     const { query, price, category } = req.body;
     if (query) {
       await handleQuery(req, res, query);
     }
-    if(price && price.length === 2){
+    if (price && price.length === 2) {
       await handlePrice(req, res, price);
     }
     if (category && category.length > 0) {
       await handleCategory(req, res, category);
     }
-
-    }catch(error){
-        console.error(error);
-        res.status(500).json({ error: "Server Product Search Filters Error" });
-    }
-}
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server Product Search Filters Error" });
+  }
+};
