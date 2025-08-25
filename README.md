@@ -8,7 +8,8 @@
 | `/api/register`       | POST   | Register user     | `{"firstName":"เจตพังคี","lastName":"คล้ายเข็ม","email":"jedta01@gmail.com","password":"123456"`               |
 | `/api/current-user`   | POST   | Get current user  | None USE TOKEN                                                                                                 |
 | `/api/current-admin`  | POST   | Get current admin | None USE TOKEN                                                                                                 |
-| `/api/reset-password` | POST   | Reset Password    | `{ "email": "jedtapungkee@gmail.com","firstName:"เจตพังคี","password":"111225"," }`                            |
+| `/api/forgot-password` | POST   | Forgot Password    | `{ "email": "jedtapungkee@gmail.com" }`                            |
+| `/api/reset-password` | POST   | Reset Password    | `{"email":"jedta02@gmail.com","otp":"903746","newPassword":"1234"}`                            |
 
 ## Education-Level
 
