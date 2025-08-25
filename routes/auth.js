@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, login,googleCallback, currentUser, resetPassword } = require('../controllers/auth');
+const { register, login,googleCallback, currentUser, resetPassword, forgotPassword } = require('../controllers/auth');
 const router = express.Router();
 const passport = require('../config/passport');
 
@@ -11,6 +11,7 @@ router.post("/register", validator(registerSchema), register)
 router.post("/login",login)
 router.post("/current-user",authCheck,currentUser);
 router.post("/current-admin",authCheck,adminCheck,currentUser);
+router.post("/forgot-password",forgotPassword);
 router.post("/reset-password", resetPassword);
 
 // เริ่ม Auth กับ Google
