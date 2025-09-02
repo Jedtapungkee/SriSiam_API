@@ -224,6 +224,48 @@ exports.forgotPassword = async (req, res) => {
   }
 };
 
+exports.verifyOtp = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    // check if user exists
+    const user = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found!!",
+      });
+    }
+
+    // check if otp is valid
+    const resetToken = await prisma.resetPasswordToken.findFirst({
+      where: {
+        userId: user.id,
+        otp,
+        expiresAt: {
+          gte: new Date(),
+        },
+        used: false,
+      },
+    });
+    if (!resetToken) {
+      return res.status(400).json({
+        message: "Invalid or expired OTP!!",
+      });
+    }
+
+    res.json({
+      message: "OTP verified successfully",
+    });
+  } catch (error) {
+    console.error("Error in verifyOtp:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
 // Reset Password
 exports.resetPassword = async (req, res) => {
   try {

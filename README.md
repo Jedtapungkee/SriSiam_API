@@ -10,6 +10,7 @@
 | `/api/current-admin`  | POST   | Get current admin | None USE TOKEN                                                                                                 |
 | `/api/forgot-password` | POST   | Forgot Password    | `{ "email": "jedtapungkee@gmail.com" }`                            |
 | `/api/reset-password` | POST   | Reset Password    | `{"email":"jedta02@gmail.com","otp":"903746","newPassword":"1234"}`                            |
+| `/api/verify-otp` | POST   | verify otp     | `{ "email": "jedtapungkee@gmail.com", "otp":"925465" }`                            |
 
 ## Education-Level
 
