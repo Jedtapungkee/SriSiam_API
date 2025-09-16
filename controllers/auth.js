@@ -111,7 +111,7 @@ exports.currentUser = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: "Server Error",
+      message: "Server User Error",
     });
   }
 };
@@ -119,7 +119,7 @@ exports.currentUser = async (req, res) => {
 // Oauth Google
 exports.googleCallback = async (req, res) => {
   const token = generateAccessToken(req.user);
-  res.redirect(`http://localhost:5173?token=${token}`);
+  res.redirect(`http://localhost:5173/auth/callback?token=${token}`);
 };
 
 const transporter = nodemailer.createTransport({

@@ -28,4 +28,11 @@ router.get('/google/callback',
     googleCallback
 );
 
+// google login payload
+router.get('/google/login/success', authCheck, (req, res) => {
+    res.json({
+        payload:req.user
+    })
+})
+
 module.exports = router;
