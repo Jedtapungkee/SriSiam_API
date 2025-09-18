@@ -206,9 +206,13 @@ const handlePrice = async (req, res, price) => {
   try {
     const products = await prisma.product.findMany({
       where: {
-        price: {
-          gte: price[0], // กำหนดราคาต่ำสุด
-          lte: price[1], // กำหนดราคาสูงสุด
+        productsizes: {
+          some: {
+            price: {
+              gte: price[0], // กำหนดราคาต่ำสุด
+              lte: price[1], // กำหนดราคาสูงสุด
+            },
+          },
         },
       },
       include: {
